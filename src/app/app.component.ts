@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+declare const MathJax: {
+  Hub: {
+    Queue: (param: Object[]) => void;
+  };
+};
 
 @Component({
   selector: 'app-root',
@@ -6,12 +12,32 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'mathJax-converter';
+  public title = 'mathJax-converter';
+  public data: any = '';
+  public converterForm: FormGroup;
 
-  convert() {
- 
+  constructor(private fb:FormBuilder) {
+    this.converterForm = fb.group({
+      text:[null,[Validators.required]],
+    })
+
+  } 
+
+  getMathExpression(text:any): string {
+    console.log(text)
+    let data = '\\sqrt{x}'
+    console.log('====')
+    console.log(data)
+    console.log(text)
+    console.log('====')
+
+
+    return data;
   }
-  getMathExpression(): string {
-    return "\\( \\sqrt{16} = 4 \\)";
+
+  handleFormSubmit(data:any){
+    console.log(data)
+    console.log(this.converterForm.value)
+   
   }
 }
